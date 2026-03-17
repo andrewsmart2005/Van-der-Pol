@@ -110,4 +110,4 @@ with torch.no_grad():
     plt.savefig('neural_ode_prediction.png')
     plt.show()
 
-    
+    torch.save(model.state_dict(), 'neural_ode.pth')

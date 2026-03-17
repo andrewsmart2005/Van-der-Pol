@@ -127,3 +127,4 @@ plt.tight_layout()
 plt.savefig('pinn_van_der_pol.png')
 plt.show()
 
+torch.save(model.state_dict(), 'pinn_model.pth')
