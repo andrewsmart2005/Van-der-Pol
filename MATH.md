@@ -54,11 +54,11 @@ When $\mu < 2$, you get complex eigenvalues with a positive real part, which giv
 
 When $\mu \geq 2$, you get two real positive eigenvalues, which gives an unstable node, so the trajectories move away from the origin without spiraling.
 
-The origin is unstable for both these cases, but the trajectories do not go to infinity. Because of the nonlinear damping term, &\mu(1-x^2)\dot{x}$, the trajectories settle into a closed loop, the limit cycle. 
+The origin is unstable for both these cases, but the trajectories do not go to infinity. Because of the nonlinear damping term, $\mu(1-x^2)\dot{x}$, the trajectories settle into a closed loop, the limit cycle. 
 
 ## Lagrangian and Hamiltonian Neural Networks
 
-Energy is not conserved with Van der Pol because of the term &\mu(1-x^2)\dot{x}$, which acts as nonlinear damping.
+Energy is not conserved with Van der Pol because of the term $\mu(1-x^2)\dot{x}$, which acts as nonlinear damping.
 
 - When $|x| < 1$, there is negative damping, which means energy is pumped into the system, pushing the oscillations to grow. 
 
