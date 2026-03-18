@@ -49,7 +49,7 @@ t_start = 0.0
 t_end = 30.0
 dt = 0.01
 initial_state = np.array([2.0, 0.0])
-initial_states = [np.array([0.1, 0.0]), np.array([1.0, 0.0]), np.array([0.0, 2.0])]
+initial_states = [np.array([0.1, 0.0]), np.array([1.0, -2.0]), np.array([0.0, 2.0])]
 mu = 1.0
 mu_values = [0.5, 1.0, 2.0]  # Different nonlinearity parameters
 

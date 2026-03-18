@@ -7,6 +7,9 @@ import torch.optim as optim
 import numpy as np
 import matplotlib.pyplot as plt
 
+torch.manual_seed(42)
+np.random.seed(42)
+
 # van der Pol oscillator dynamics
 def van_der_pol(t, state, mu):
     x, v = state
@@ -89,7 +92,7 @@ t_vals, states = rk4(van_der_pol, initial_state, t_start, t_end, 0.01, mu)
 model = PINN()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 
-iterations = 5000
+iterations = 10000
 for iter in range(iterations):
     optimizer.zero_grad()
     loss_physics = physics_loss(model, t_collocation, mu)
@@ -103,15 +106,15 @@ for iter in range(iterations):
 # Evaluate the trained model
 model.eval()
 with torch.no_grad():
-    t_test = np.linspace(t_start, t_end, 200)
-    t_test_tensor = torch.tensor(t_test, dtype=torch.float32).unsqueeze(1)
+    #t_test = np.linspace(t_start, t_end, 200)
+    t_test_tensor = torch.tensor(t_vals, dtype=torch.float32).unsqueeze(1)
     pred_states = model(t_test_tensor).numpy()
 
 # Plot results
 plt.figure(figsize=(12, 6))
 plt.subplot(1, 2, 1)
 plt.plot(t_vals, states[:, 0], label='True x')
-plt.plot(t_test, pred_states[:, 0], label='PINN Predicted x', linestyle='dashed')
+plt.plot(t_vals, pred_states[:, 0], label='PINN Predicted x', linestyle='dashed')
 plt.title('PINN: True vs Predicted x(t)')
 plt.xlabel('Time (t)')
 plt.ylabel('x(t)')
@@ -128,3 +131,6 @@ plt.savefig('pinn_van_der_pol.png')
 plt.show()
 
 torch.save(model.state_dict(), 'pinn_model.pth')
+
+mse = np.mean((pred_states - states)**2)
+print(f"MSE: {mse:.6f}")

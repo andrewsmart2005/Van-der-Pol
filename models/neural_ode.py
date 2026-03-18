@@ -62,6 +62,10 @@ mu = 1.0
 
 # Generate training data
 t_vals, states = rk4(van_der_pol, initial_state, t_start, t_end, dt, mu)
+
+# noisy data
+#states += 0.1 * np.random.normal(size=states.shape)
+
 # Convert to PyTorch tensors
 t_tensor = torch.tensor(t_vals, dtype=torch.float32)
 states_tensor = torch.tensor(states, dtype=torch.float32)
@@ -90,7 +94,7 @@ for i in range(iterations):
         print(f"Iteration {i+1}/{iterations}, Loss: {loss.item():.6f}")
 
 
-# eval
+# evalre
 model.eval()
 with torch.no_grad():
     pred_states = odeint(model, states_tensor[0], t_tensor).numpy()
@@ -111,3 +115,6 @@ with torch.no_grad():
     plt.show()
 
     torch.save(model.state_dict(), 'neural_ode.pth')
+
+    mse = np.mean((pred_states - states) ** 2)
+    print(f"MSE: {mse:.6f}")

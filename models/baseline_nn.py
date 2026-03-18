@@ -10,6 +10,9 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 
+torch.manual_seed(42)
+np.random.seed(42)
+
 # Van der Pol oscillator dynamics
 def van_der_pol(t, state, mu):
     x, v = state
@@ -43,6 +46,8 @@ mu = 1.0
 # Generate training data
 t_vals, states = rk4(van_der_pol, initial_state, t_start, t_end, dt, mu)
 
+# noisy
+#states += 0.1 * np.random.normal(size=states.shape)
 
 # Normalize the data
 t_min, t_max = t_vals.min(), t_vals.max()
@@ -74,7 +79,7 @@ optimizer = optim.Adam(model.parameters(), lr=0.001)
 # Convert training data to PyTorch tensors
 X_train_tensor = torch.tensor(X_train, dtype=torch.float32)
 y_train_tensor = torch.tensor(y_train, dtype=torch.float32)
-iterations = 1000
+iterations = 10000
 for iter in range(iterations):
     model.train()
     optimizer.zero_grad()
@@ -110,3 +115,6 @@ plt.tight_layout()
 plt.savefig('van_der_pol_nn_comparison.png')
 plt.show()  
 torch.save(model.state_dict(), 'baseline_nn.pth')
+
+mse = np.mean((predictions - states[:-1]) ** 2) 
+print(f"Baseline NN MSE: {mse:.6f}")
