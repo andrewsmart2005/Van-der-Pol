@@ -111,10 +111,10 @@ with torch.no_grad():
     axes[1].set_xlabel('x(t)')
     axes[1].set_ylabel('v(t)')
     axes[1].legend()
-    plt.savefig('neural_ode_prediction.png')
+    plt.savefig('../figures/neural_ode_prediction.png')
     plt.show()
 
-    torch.save(model.state_dict(), 'neural_ode.pth')
+    torch.save(model.state_dict(), '../weights/neural_ode.pth')
 
     mse = np.mean((pred_states - states) ** 2)
     print(f"MSE: {mse:.6f}")

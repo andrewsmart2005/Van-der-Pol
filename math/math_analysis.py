@@ -75,7 +75,7 @@ plt.ylabel('v(t)')
 plt.grid()
 plt.legend()
 plt.tight_layout()
-plt.savefig('van_der_pol_mu_analysis.png')
+plt.savefig('../figures/van_der_pol_mu_analysis.png')
 plt.show()
 
 # Plot with one mu (=1), varying initial conditions
@@ -100,7 +100,7 @@ plt.grid()
 plt.legend()
 plt.tight_layout()
 
-plt.savefig('van_der_pol_initial_conditions.png')
+plt.savefig('../figures/van_der_pol_initial_conditions.png')
 plt.show()
 
 # vector field plot for mu = 1.0
@@ -118,5 +118,5 @@ plt.title(f'Van der Pol Vector Field (μ={mu})')
 plt.xlabel('x')
 plt.ylabel('v')                                                                    
 plt.grid()                                                                         
-plt.savefig('van_der_pol_vector_field.png')
+plt.savefig('../figures/van_der_pol_vector_field.png')
 plt.show()                                                                         

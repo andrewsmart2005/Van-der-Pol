@@ -127,10 +127,10 @@ plt.xlabel('x(t)')
 plt.ylabel('v(t)')
 plt.legend()
 plt.tight_layout()
-plt.savefig('pinn_van_der_pol.png')
+plt.savefig('../figures/pinn_van_der_pol.png')
 plt.show()
 
-torch.save(model.state_dict(), 'pinn_model.pth')
+torch.save(model.state_dict(), '../weights/pinn_model.pth')
 
 mse = np.mean((pred_states - states)**2)
 print(f"MSE: {mse:.6f}")
