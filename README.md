@@ -8,6 +8,7 @@ where $\mu$ controls the strength of the nonlinear damping. This project analyze
 
 ## Repository Structure
 
+'''
 Van-der-Pol
 ├── MATH.md 
 ├── README.md
@@ -39,6 +40,7 @@ Van-der-Pol
     ├── neural_ode.pth
     ├── pinn_model.pth
     └── resnet.pth
+'''
 
 ## Requirements
 
