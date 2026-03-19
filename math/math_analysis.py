@@ -1,17 +1,18 @@
 
-
 # Van der Pol oscillator
 # x'' - μ(1 - x^2)x' + x = 0
-# rewrite as a first-order system:
+# rewriting as a first-order system:
 # dx/dt = v
 # dv/dt = μ(1 - x^2)v - x
 import numpy as np
 import matplotlib.pyplot as plt
 
-# I want:
 # Time series of x(t) and v(t)
 # Phase space plot of x vs v
 # Multiiple μ(mu) values to see how the nonlinearity affects the dynamics
+# equilibrium
+# jacobian
+# vector field
 
 # func that takes in state [x, v] and returns [dx/dt, dv/dt]
 def van_der_pol(t, state, mu):
@@ -25,7 +26,7 @@ mu_vals = [0.5, 1.0, 2.0, 4.0]
 for mu in mu_vals:
     J = np.array([[0, 1], [-1, mu]])
     eigenvalues = np.linalg.eigvals(J)
-    print(f"Eigenvalues of the Jacobian at the equilibrium point for μ={mu}:", eigenvalues)
+    print("Eigenvalues:", eigenvalues)
 
 # Write RK4 solver so we can generate trajectories
 def rk4_step(func, t, state, dt, mu):
@@ -55,8 +56,9 @@ mu_values = [0.5, 1.0, 2.0]  # Different nonlinearity parameters
 
 
 # Plot with one initial state, varying mu
-plt.figure(figsize=(12, 6))
+plt.figure(figsize=(12, 5))
 plt.subplot(2, 1, 1)
+# time series for different mu
 for mu in mu_values:
     t_values, states = rk4(van_der_pol, initial_state, t_start, t_end, dt, mu)
     plt.plot(t_values, states[:, 0], label=f'μ={mu}')
@@ -66,6 +68,8 @@ plt.ylabel('x(t)')
 plt.grid()
 plt.legend()
 plt.subplot(2, 1, 2)
+
+# phase space for different mu
 for mu in mu_values:
     t_values, states = rk4(van_der_pol, initial_state, t_start, t_end, dt, mu)
     plt.plot(states[:, 0], states[:, 1], label=f'μ={mu}')
@@ -79,8 +83,10 @@ plt.savefig('../figures/van_der_pol_mu_analysis.png')
 plt.show()
 
 # Plot with one mu (=1), varying initial conditions
-plt.figure(figsize=(12, 6))
+plt.figure(figsize=(12, 5))
 plt.subplot(2, 1, 1)
+
+# time series for different init conditions
 for initial_state in initial_states:
     t_values, states = rk4(van_der_pol, initial_state, t_start, t_end, dt, mu)
     plt.plot(t_values, states[:, 0], label=f'Initial={initial_state}')
@@ -90,9 +96,12 @@ plt.ylabel('x(t)')
 plt.grid()
 plt.legend()
 plt.subplot(2, 1, 2)
+
+# phase space for different init conditions
 for initial_state in initial_states:
     t_values, states = rk4(van_der_pol, initial_state, t_start, t_end, dt, mu)
     plt.plot(states[:, 0], states[:, 1], label=f'Initial={initial_state}')
+    
 plt.title('Van der Pol Oscillator: Phase Space (x vs v) for Different Initial Conditions')
 plt.xlabel('x(t)')
 plt.ylabel('v(t)')
